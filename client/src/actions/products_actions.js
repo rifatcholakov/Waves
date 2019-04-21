@@ -4,10 +4,13 @@ import {
     GET_PRODUCTS_BY_ARRIVAL,
     GET_BRANDS,
     GET_WOODS,
-    GET_PRODUCTS_TO_SHOP
+    GET_PRODUCTS_TO_SHOP,
+    ADD_PRODUCT,
+    CLEAR_PRODUCT
 } from './types';
 
 import { PRODUCT_SERVER } from '../components/utils/misc';
+import add_product from '../components/User/Admin/add_product';
 
 export function getProductsBySell() {
     //?sortBy=sold&order=desc&limit=100
@@ -55,6 +58,25 @@ export function getProductsToShop(skip, limit, filters=[], previousState=[]) {
         payload: request
     }
 }
+
+export function addProduct(dataToSubmit) {
+    const request = axios.post(`${PRODUCT_SERVER}/article`, dataToSubmit)
+                    .then(response => response.data);
+    
+    return {
+        type: ADD_PRODUCT,
+        payload: request
+    }
+}
+
+
+export function clearProduct() {
+    return {
+        type: CLEAR_PRODUCT,
+        payload: ''
+    }
+}
+
 
 
 ///////////////////////////////////

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import UserLayout from '../../../hoc/user';
 
 import FormField from '../../utils/Form/formfield';
-import { update, generateData, isFormValid, populateOptionFields } from '../../utils/Form/formActions';
+import { update, generateData, isFormValid, populateOptionFields, resetFields } from '../../utils/Form/formActions';
 
 import { connect } from 'react-redux';
-import { getBrands, getWoods } from '../../../actions/products_actions'; 
+import { getBrands, getWoods, addProduct, clearProduct } from '../../../actions/products_actions'; 
 
 class AddProduct extends Component {
 
@@ -183,6 +183,53 @@ class AddProduct extends Component {
         })
     }
 
+    updateForm = (element) => {
+        const newFormdata = update(element, this.state.formdata, 'products');
+        this.setState({
+            formError: false,
+            formdata: newFormdata
+        })
+    }
+
+    resetFieldHandler = () => {
+        const newFormData = resetFields(this.state.formdata, 'products');
+
+        this.setState({
+            formdata: newFormData,
+            formSuccess: true
+        });
+
+        setTimeout(() => {
+            this.setState({
+
+                formSuccess: false
+            }, () => {
+                this.props.dispatch(clearProduct());
+            });
+        }, 3000);
+    }
+
+    submitForm = (event) => {
+        event.preventDefault();
+        
+        let dataToSubmit = generateData(this.state.formdata, 'products');
+        let formIsValid = isFormValid(this.state.formdata, 'products');
+
+        if(formIsValid) {
+            this.props.dispatch(addProduct(dataToSubmit)).then(() => {
+                if(this.props.products.addProduct.success) {
+                    this.resetFieldHandler();
+                } else {
+                    this.setState({ formError: true });
+                }
+            });
+        } else {
+            this.setState({
+                formError: true
+            });
+        }
+    }
+
     componentDidMount() {
         const formdata = this.state.formdata;
 
@@ -261,7 +308,7 @@ class AddProduct extends Component {
                             
                             <FormField
                                 id={'publish'}
-                                formdata={this.state.formdata.frets}
+                                formdata={this.state.formdata.publish}
                                 change={(element) => this.updateForm(element)}
                             />
 
