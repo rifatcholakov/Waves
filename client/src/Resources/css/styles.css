@@ -588,9 +588,11 @@ footer .business_nfo .nfo {
     padding: 10px 10px;
     font-size: 20px;
     color: #c6c6c6;
+    cursor: pointer;
 }
 .grid_btn.active {
     color: #727272;
+    cursor: pointer;
 }
 
 .shop_options {
