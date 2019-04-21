@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 class Fileupload extends Component {
     constructor() {
         super();
-        this.sate = {
+        this.state = {
             uploadedFiles:[],
             uploading: false
         }
@@ -39,9 +39,24 @@ class Fileupload extends Component {
 
     }
 
-    showUploadedImages = () => {
+    onRemove = (id) => {
 
     }
+
+    showUploadedImages = () => (
+        this.state.uploadedFiles.map(item => (
+            <div className="dropzone_box"
+                key={item.public_id}
+                onClick={() => this.onRemove(item.public_id)}
+            >
+                <div 
+                    className="wrap"
+                    style={{ background: `url(${item.url}) no-repeat` }}
+                >
+                </div>
+            </div>
+        ))
+    )
 
     render() {
             return (
