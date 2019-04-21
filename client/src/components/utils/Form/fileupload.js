@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlusCircle from '@fortawesome/fontawesome-free-solid/faPlusCircle';
+import faMinusCircle from '@fortawesome/fontawesome-free-solid/faMinusCircle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Fileupload extends Component {
@@ -40,7 +41,17 @@ class Fileupload extends Component {
     }
 
     onRemove = (id) => {
+        axios.get(`/api/users/removeimage?public_id=${id}`).then(response => {
+            let images = this.state.uploadedFiles.filter(item => {
+                return item.public_id !== id;
+            });
 
+            this.setState({
+                uploadedFiles: images
+            }, () => {
+                this.props.imagesHandler(images)
+            })
+        })
     }
 
     showUploadedImages = () => (
@@ -53,10 +64,23 @@ class Fileupload extends Component {
                     className="wrap"
                     style={{ background: `url(${item.url}) no-repeat` }}
                 >
+                    <FontAwesomeIcon
+                        icon={faMinusCircle}
+                    />
                 </div>
             </div>
         ))
     )
+
+    static getDerivedStateFromProps(props, state) {
+        if(props.reset) {
+            return state = {
+                uploadedFiles: []
+            }
+        }
+
+        return null;
+    }
 
     render() {
             return (
