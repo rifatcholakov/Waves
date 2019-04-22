@@ -2,59 +2,58 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema({
-    name: {
+    name:{
         required: true,
         type: String,
-        unique: true,
-        maxlength: 100
+        unique: 1,
+        maxlength:100
     },
-    description: {
+    description:{
         required: true,
         type: String,
-        maxlength: 10000
+        maxlength:100000
     },
-    price: {
+    price:{
         required: true,
         type: Number,
         maxlength: 255
     },
-    brand: {
+    brand:{
         type: Schema.Types.ObjectId,
         ref: 'Brand',
         required: true
     },
-    shipping: {
+    shipping:{
         required: true,
         type: Boolean
     },
-    available: {
+    available:{
         required: true,
         type: Boolean
     },
-    wood: {
+    wood:{
         type: Schema.Types.ObjectId,
         ref: 'Wood',
         required: true
     },
-    frets: {
+    frets:{
         required: true,
         type: Number
     },
-    sold: {
+    sold:{
         type: Number,
         maxlength: 100,
         default: 0
     },
-    publish: {
+    publish:{
         required: true,
         type: Boolean
     },
-    images: {
+    images:{
         type: Array,
-        default: []
+        default:[]
     }
-}, { timestamps: true });
+},{timestamps:true});
 
-const Product = mongoose.model('Product', productSchema);
-
-module.exports = { Product };
+const Product = mongoose.model('Product',productSchema);
+module.exports = { Product }

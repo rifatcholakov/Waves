@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import HomeSlider from './home_slider';
-import HomePromotion from './home_promotion';
+import HomePromotion from './home_promotion'
 import CardBlock from '../utils/card_block';
 
 import { connect } from 'react-redux';
@@ -8,13 +8,13 @@ import { getProductsBySell, getProductsByArrival } from '../../actions/products_
 
 class Home extends Component {
 
-    componentDidMount() {
+    componentDidMount(){
         this.props.dispatch(getProductsBySell());
         this.props.dispatch(getProductsByArrival());
     }
 
     render() {
-            return (
+        return (
             <div>
                 <HomeSlider/>
                 <CardBlock
@@ -31,10 +31,10 @@ class Home extends Component {
     }
 }
 
-const mapToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         products: state.products
     }
 }
 
-export default connect(mapToProps)(Home);
+export default connect(mapStateToProps)(Home);

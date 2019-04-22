@@ -6,18 +6,18 @@ const HomeSlider = (props) => {
 
     const slides = [
         {
-            img: '/images/featured/featured_home.jpg',
-            lineOne: 'Fender',
-            lineTwo: 'Custom shop',
-            linkTitle: 'Shop now',
-            linkTo: '/shop'
+            img:'/images/featured/featured_home.jpg',
+            lineOne:'Fender',
+            lineTwo:'Custom shop',
+            linkTitle:'Shop now',
+            linkTo:'/shop'
         },
         {
-            img: '/images/featured/featured_home_2.jpg',
-            lineOne: 'B-Stock',
-            lineTwo: 'Awesome discounts',
-            linkTitle: 'View offers',
-            linkTo: '/shop'
+            img:'/images/featured/featured_home_2.jpg',
+            lineOne:'B-Stock',
+            lineTwo:'Awesome discounts',
+            linkTitle:'View offers',
+            linkTo:'/shop'
         }
     ]
 
@@ -32,12 +32,12 @@ const HomeSlider = (props) => {
 
     const generateSlides = () => (
         slides ?
-            slides.map((item, i) => (
+            slides.map((item,i)=>(
                 <div key={i}>
                     <div className="featured_image"
                         style={{
-                            background: `url(${item.img})`,
-                            height: `${window.innerHeight}px`
+                            background:`url(${item.img})`,
+                            height:`${window.innerHeight}px`
                         }}
                     >
                         <div className="featured_action">
@@ -49,7 +49,7 @@ const HomeSlider = (props) => {
                                     title={item.linkTitle}
                                     linkTo={item.linkTo}
                                     addStyles={{
-                                        margin: '10px 0 0 0'
+                                        margin:'10px 0 0 0'
                                     }}
                                 />
                             </div>
@@ -58,12 +58,14 @@ const HomeSlider = (props) => {
                 </div>
             ))
         :null
-    );
+    )
+    
+ 
 
     return (
         <div className="featured_container">
             <Slider {...settings}>
-                {generateSlides() }
+                { generateSlides()}
             </Slider>
         </div>
     );

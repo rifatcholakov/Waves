@@ -14,7 +14,7 @@ const links = [
     {
         name: 'My Cart',
         linkTo: '/user/cart'
-    }
+    },
 ]
 
 const admin = [
@@ -23,7 +23,7 @@ const admin = [
         linkTo: '/admin/site_info'
     },
     {
-        name: 'Add Products',
+        name: 'Add products',
         linkTo: '/admin/add_product'
     },
     {
@@ -32,15 +32,17 @@ const admin = [
     }
 ]
 
+
 const UserLayout = (props) => {
 
     const generateLinks = (links) => (
-        links.map((item, i) => (
+        links.map((item,i)=>(
             <Link to={item.linkTo} key={i}>
                 {item.name}
             </Link>
         ))
-    );
+    )
+
 
     return (
         <div className="container">
@@ -48,17 +50,18 @@ const UserLayout = (props) => {
                 <div className="user_left_nav">
                     <h2>My account</h2>
                     <div className="links">
-                        { generateLinks(links) }
+                        { generateLinks(links)}
                     </div>
                     { props.user.userData.isAdmin ?
                         <div>
                             <h2>Admin</h2>
                             <div className="links">
-                                { generateLinks(admin) }
+                                { generateLinks(admin)}
                             </div>
                         </div>
                     :null
                     }
+
                 </div>
                 <div className="user_right">
                     {props.children}
@@ -68,10 +71,11 @@ const UserLayout = (props) => {
     );
 };
 
-const mapStateTOProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         user: state.user
     }
 }
 
-export default connect(mapStateTOProps)(UserLayout);
+
+export default connect(mapStateToProps)(UserLayout);

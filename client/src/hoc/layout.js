@@ -5,7 +5,7 @@ import Footer from '../components/Header_footer/Footer';
 
 class Layout extends Component {
     render() {
-            return (
+        return (
             <div>
                 <Header/>
                 <div className="page_container">

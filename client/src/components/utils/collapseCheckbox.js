@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 
+
 class CollapseCheckbox extends Component {
 
     state = {
@@ -17,8 +18,9 @@ class CollapseCheckbox extends Component {
         checked: []
     }
 
-    componentDidMount() {
-        if(this.props.initState) {
+
+    componentDidMount(){
+        if(this.props.initState){
             this.setState({
                 open: this.props.initState
             })
@@ -30,59 +32,60 @@ class CollapseCheckbox extends Component {
     }
 
     handleAngle = () => (
-        this.state.open ? 
+        this.state.open ?
             <FontAwesomeIcon
                 icon={faAngleUp}
                 className="icon"
             />
-        :
+        : 
             <FontAwesomeIcon
                 icon={faAngleDown}
                 className="icon"
             />
-    );
+    )
 
     renderList = () => (
         this.props.list ?
-            this.props.list.map((value) => (
-                    <ListItem key={value._id} style={{padding: '10px 0'}}>
-                        <ListItemText primary={value.name} />
-                        <ListItemSecondaryAction>
-                            <Checkbox 
-                                color="primary"
-                                onChange={() => this.handleToggle(value._id)}
-                                checked={this.state.checked.indexOf(value._id) !== -1}
-                            />
-                        </ListItemSecondaryAction>
-                    </ListItem>
+            this.props.list.map((value)=>(
+                <ListItem key={value._id} style={{padding:'10px 0'}}>
+                    <ListItemText primary={value.name}/>
+                    <ListItemSecondaryAction>
+                        <Checkbox
+                            color="primary"
+                            onChange={this.handleToggle(value._id)}
+                            checked={this.state.checked.indexOf(value._id) !== -1}
+                        />
+                    </ListItemSecondaryAction>
+                </ListItem>
             ))
         :null
-    );
+    )
 
-    handleToggle = value => {
+
+    handleToggle = value => () => {
         const { checked } = this.state;
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
-        if(currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
+        if(currentIndex === -1){
+            newChecked.push(value)
+        } else{
+            newChecked.splice(currentIndex,1)
         }
 
         this.setState({
             checked: newChecked
-        }, () => {
+        },()=>{
             this.props.handleFilters(newChecked)
-        });
-        
+        })
+
     }
 
     render() {
-            return (
+        return (
             <div className="collapse_items_wrapper">
-                <List style={{ borderBottom: '1px solid #dbdbdb' }}>
-                    <ListItem onClick={this.handleClick} style={{ padding: '10px 23px 10px 0' }}>
+                <List style={{borderBottom: '1px solid #dbdbdb'}}>
+                    <ListItem onClick={this.handleClick} style={{padding:'10px 23px 10px 0'}}>
                         <ListItemText
                             primary={this.props.title}
                             className="collapse_title"

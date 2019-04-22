@@ -3,9 +3,10 @@ import Card from './card';
 
 const CardBlock = (props) => {
 
-    const renderCards = () => (
-        props.list ? 
-            props.list.map((card, i) => (
+
+    const renderCards = () =>(
+        props.list ?
+            props.list.map((card,i)=>(
                     <Card
                         key={i}
                         {...card}
@@ -13,6 +14,7 @@ const CardBlock = (props) => {
             ))
         :null
     )
+
 
     return (
         <div className="card_block">
@@ -25,11 +27,12 @@ const CardBlock = (props) => {
                     :null
                 }
                 <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap'
+                    display:'flex',
+                    flexWrap:'wrap'
                 }}>
-                    { renderCards(props.list) }
+                    { renderCards(props.list)}
                 </div>
+
             </div>
         </div>
     );
