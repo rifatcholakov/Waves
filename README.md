@@ -14,6 +14,7 @@ This project demonstrates a simple e-commerce application for a gutar store. It 
  * An option to sort products by brands, frets, wood and price
  * History purchases 
  * PayPal checkout
+ * Slider
  * Nice looking and friendly UI
 
 ## Important
