@@ -10,7 +10,7 @@ const async = require('async');
 require('dotenv').config();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE)
+mongoose.connect(process.env.MONGODB_URI)
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -20,7 +20,9 @@ cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET
-})
+});
+
+app.use(express.static('client/build'));
 
 // Models
 const { User } = require('./models/user');
@@ -416,6 +418,13 @@ app.post('/api/users/update_profile',auth,(req,res)=>{
     );
 })
 
+// DEFAULT
+if(process.env.NODE_ENV === 'production') {
+    const path = require('path');
+    app.get('/*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
+    });
+}
 
 const port = process.env.PORT || 3002;
 app.listen(port,()=>{
